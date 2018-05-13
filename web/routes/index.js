@@ -1,4 +1,4 @@
-import { APP } from '../../config';
+/*import { APP } from '../../config';
 
 export default (router) => {
   router.route('/').get(function (req, res) {
@@ -11,4 +11,20 @@ export default (router) => {
 
 
   return router;
-};
+};*/
+const express = require('express');
+const router = express.Router();
+
+router.get('/',(req,res)=>{
+  res.send("Hello Tidyclean!");
+});
+
+router.get('/register',(req,res)=>{
+  res.send("Hello Register!");
+});
+
+router.get('/login',(req,res)=>{
+  res.send("Hello login!");
+});
+
+module.exports = router;
