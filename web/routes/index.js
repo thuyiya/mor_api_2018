@@ -27,4 +27,8 @@ router.get('/login',(req,res)=>{
   res.send("Hello login!");
 });
 
+router.get('/about',(req,res)=>{
+  res.send("Hello about!");
+});
+
 module.exports = router;
