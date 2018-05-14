@@ -11,3 +11,9 @@ const userSchema = new schema({
 });
 
 module.exports = mongoose.model("User",userSchema);
+
+module.exports.saveUser = function(regUser,callback){
+    console.log({regUser});
+    //randula save this data in db
+
+};
