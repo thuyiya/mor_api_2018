@@ -30,7 +30,14 @@ router.post('/register',(req,res)=>{
     phoneno:req.body.phoneno,
     password:req.body.password
   });
-  console.log({regUser});
+  datamodelds.saveUser(regUser,(err,user)=>{
+    if(err){
+      res.json({state:false,msg:"data not inserted!"})
+    }else{
+      res.json({state:true,msg:"data inserted!"})
+    }
+
+  })
 });
 
 router.get('/login',(req,res)=>{
