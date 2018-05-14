@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const schema = mongoose.Schema;
 
 const userSchema = new schema({
@@ -10,10 +11,20 @@ const userSchema = new schema({
 
 });
 
-module.exports = mongoose.model("User",userSchema);
+module.exports = mongoose.model("datamodels",userSchema);
 
-module.exports.saveUser = function(regUser,callback){
-    console.log({regUser});
-    //randula save this data in db
+module.exports.dbSave = function(regUser,callback){
+   // console.log({regUser});
 
+   bcrypt.genSalt(10, function(err, salt) {
+       bcrypt.hash(regUser.password, salt, function(err, hash) {
+           //console.log(hash);
+           regUser.password = hash;
+           if(err){
+                throw err;
+           }else{
+           regUser.save(callback);
+           }
+       });
+   });
 };
