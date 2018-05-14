@@ -11,7 +11,7 @@ const userSchema = new schema({
 
 });
 
-module.exports = mongoose.model("datamodels",userSchema);
+const datamodels = module.exports = mongoose.model("datamodels",userSchema);
 
 module.exports.dbSave = function(regUser,callback){
    // console.log({regUser});
@@ -28,3 +28,8 @@ module.exports.dbSave = function(regUser,callback){
        });
    });
 };
+
+module.exports.searchUser = function(username,callback){
+    const query = {username:username};
+    datamodels.findOne(query,callback);
+}; 
