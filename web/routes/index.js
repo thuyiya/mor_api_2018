@@ -14,13 +14,23 @@ export default (router) => {
 };*/
 const express = require('express');
 const router = express.Router();
+const datamodelds = require('../../datamodels/user');
 
 router.get('/',(req,res)=>{
   res.send("Hello Tidyclean!");
 });
 
-router.get('/register',(req,res)=>{
-  res.send("Hello Register!");
+router.post('/register',(req,res)=>{
+  //console.log(req.body);
+  
+  const regUser = new datamodelds({
+    fullname:req.body.fullname,
+    username:req.body.username,
+    email:req.body.email,
+    phoneno:req.body.phoneno,
+    password:req.body.password
+  });
+  console.log({regUser});
 });
 
 router.get('/login',(req,res)=>{
