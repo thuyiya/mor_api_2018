@@ -22,7 +22,6 @@ router.get('/',(req,res)=>{
 
 router.post('/register',(req,res)=>{
   //console.log(req.body);
-  
   const regUser = new datamodelds({
     fullname:req.body.fullname,
     username:req.body.username,
@@ -40,8 +39,19 @@ router.post('/register',(req,res)=>{
   })
 });
 
-router.get('/login',(req,res)=>{
-  res.send("Hello login!");
+router.post('/login',(req,res)=>{
+  //res.send("Hello login!");
+  const username = req.body.username;
+  const password = req.body.password;
+
+  datamodelds.searchUser(username,function(err,user){
+    if(err) throw err;
+
+    if(user){
+      console.log(user);
+    }
+  })
+
 });
 
 router.get('/about',(req,res)=>{
