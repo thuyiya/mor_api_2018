@@ -48,7 +48,18 @@ router.post('/login',(req,res)=>{
     if(err) throw err;
 
     if(user){
-      console.log(user);
+      //console.log(user);
+      datamodelds.matchpassword(password,user.password,function(err,match){
+        if(err) throw err;
+        if(match){
+          res.json({state:true,msg:"Username, password mached!"});
+        }else{
+          res.json({state:false,msg:"Wrong password!"});
+        }
+      })
+      
+    }else{
+      res.json({state:false,msg:"No user found!"});
     }
   })
 

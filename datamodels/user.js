@@ -33,3 +33,16 @@ module.exports.searchUser = function(username,callback){
     const query = {username:username};
     datamodels.findOne(query,callback);
 }; 
+
+module.exports.matchpassword = function(password,hash,callback){
+    //console.log(password+" "+hash);
+    bcrypt.compare(password, hash, function(err, res) {
+        if(err) throw  err;
+        if (res){
+            callback(null,res);
+        } else{
+            callback(null,res);
+        }
+       // console.log(res);
+    });
+}
