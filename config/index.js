@@ -1,5 +1,5 @@
-import APP from '../package.json';
+/*import APP from '../package.json';
 
 export {
   APP
-};
+};*/
