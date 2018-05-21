@@ -14,6 +14,7 @@ export default (router) => {
 };*/
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 const router = express.Router();
 const datamodelds = require('../../datamodels/user');
@@ -99,6 +100,7 @@ router.post('/login',(req,res)=>{
 
 router.get('/profile',token.verifytoken,(req,res)=>{
   var userdata = req.user;
+  //console.log(req.session);
   res.json(userdata);
 
 });
@@ -106,6 +108,11 @@ router.get('/profile',token.verifytoken,(req,res)=>{
 router.get('/about',token.verifytoken,(req,res)=>{
   var userdata = req.user;
   res.send("I'm "+userdata.fullname+". my user name is "+userdata.username);
+});
+
+router.get('/logout',token.verifytoken,(req,res)=>{
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;
