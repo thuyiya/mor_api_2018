@@ -41,7 +41,7 @@ router.post('/login',(req,res)=>{
       datamodelds.matchpassword(password,user.password,function(err,match){
         if(err) throw err;
         if(match){
-          console.log({user});
+          //console.log({user});
          // res.json({state:true,msg:"Username, password mached!"});
          const obj = { _id: user._id,
           fullname:user.fullname,
