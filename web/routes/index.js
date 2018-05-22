@@ -20,11 +20,15 @@ router.post('/register',(req,res)=>{
   });
   datamodelds.dbSave(regUser,(err,user)=>{
     if(err){
+      
+        if (err.name === 'MongoError' && err.code === 11000) {
+            console.log('There was a duplicate key error');
+        } 
+    
       res.json({state:false,msg:"data not inserted!"})
     }else{
       res.json({state:true,msg:"data inserted!"})
     }
-
   })
 });
 
