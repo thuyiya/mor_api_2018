@@ -1,20 +1,5 @@
-/*import { APP } from '../../config';
-
-export default (router) => {
-  router.route('/').get(function (req, res) {
-    res.status(200).json({ code: 2000, message: APP.name + ' api version' + APP.version });
-  });
-
-  router.route('/register').get(function(req, res){
-    res.send("Hello Resgister!")
-  });
-
-
-  return router;
-};*/
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
 
 const router = express.Router();
 const datamodelds = require('../../datamodels/user');
@@ -107,8 +92,8 @@ router.get('/about',token.verifytoken,(req,res)=>{
 });
 
 router.get('/logout',token.verifytoken,(req,res)=>{
-  req.logout();
   res.redirect('/');
+
 });
 
 module.exports = router;
