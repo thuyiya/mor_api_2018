@@ -28,6 +28,9 @@
     "eslint-plugin-standard": "^3.1.0"
   },
   "dependencies": {
-    "express": "^4.16.3"
+    "bcrypt": "^2.0.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.2",
+    "morgan": "^1.9.0"
   }
 }
