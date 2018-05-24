@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import express from 'express';
+/*import express from 'express';
 import router from './routes';
 
 const app = express();
@@ -10,3 +10,4 @@ app.use(router(expressRoute));
 export {
   app
 };
+*/
