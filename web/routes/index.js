@@ -1,17 +1,3 @@
-/*import { APP } from '../../config';
-
-export default (router) => {
-  router.route('/').get(function (req, res) {
-    res.status(200).json({ code: 2000, message: APP.name + ' api version' + APP.version });
-  });
-
-  router.route('/register').get(function(req, res){
-    res.send("Hello Resgister!")
-  });
-
-
-  return router;
-};*/
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
@@ -34,11 +20,15 @@ router.post('/register',(req,res)=>{
   });
   datamodelds.dbSave(regUser,(err,user)=>{
     if(err){
+      
+        if (err.name === 'MongoError' && err.code === 11000) {
+            console.log('There was a duplicate key error');
+        } 
+    
       res.json({state:false,msg:"data not inserted!"})
     }else{
       res.json({state:true,msg:"data inserted!"})
     }
-
   })
 });
 
@@ -55,7 +45,7 @@ router.post('/login',(req,res)=>{
       datamodelds.matchpassword(password,user.password,function(err,match){
         if(err) throw err;
         if(match){
-          console.log({user});
+          //console.log({user});
          // res.json({state:true,msg:"Username, password mached!"});
          const obj = { _id: user._id,
           fullname:user.fullname,
@@ -95,6 +85,7 @@ router.post('/login',(req,res)=>{
 
 router.get('/profile',token.verifytoken,(req,res)=>{
   var userdata = req.user;
+  //console.log(req.session);
   res.json(userdata);
 
 });
@@ -102,6 +93,11 @@ router.get('/profile',token.verifytoken,(req,res)=>{
 router.get('/about',token.verifytoken,(req,res)=>{
   var userdata = req.user;
   res.send("I'm "+userdata.fullname+". my user name is "+userdata.username);
+});
+
+router.get('/logout',token.verifytoken,(req,res)=>{
+  res.redirect('/');
+
 });
 
 module.exports = router;
