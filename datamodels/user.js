@@ -31,7 +31,7 @@ module.exports.dbSave = function(regUser,callback){
 
 };
 
-searchUser = function(username,callback){
+module.exports.searchUser = function(username,callback){
     const query = {username:username};
     datamodels.findOne(query,callback);
 }; 

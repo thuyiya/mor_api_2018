@@ -1,5 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const passportlocal = require('passport-local');
+const passportjwt = require('passport-jwt');
+var blacklist = require('express-jwt-blacklist');
+var jwtp = require('express-jwt');
+const session = require('express-session');
 
 const router = express.Router();
 const datamodelds = require('../../datamodels/user');
@@ -96,8 +102,13 @@ router.get('/about',token.verifytoken,(req,res)=>{
 });
 
 router.get('/logout',token.verifytoken,(req,res)=>{
-  res.redirect('/');
-
+    req.logout();
+    res.redirect('/');
+  
 });
+
+
+
+
 
 module.exports = router;
