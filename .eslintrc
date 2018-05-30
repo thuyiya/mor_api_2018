@@ -1,11 +1,15 @@
 {
-    "env": {
-      "es6": true,
-      "node": true,
-      "mocha": false
-    },
-    "extends": "eslint-config-standard",
-    "rules": {
-          "semi": ["error", "always"]
-      }
+  "parser": "babel-eslint",
+  "extends": "airbnb-base",
+  "rules": {
+    "comma-dangle": [
+      2,
+      "never"
+    ],
+    "semi": 0,
+    "max-len": 0,
+    "no-multiple-empty-lines": 0,
+    "object-shorthand": 0,
+    "padded-blocks": 0
   }
+}
