@@ -1,15 +1,14 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 var blacklist = require('express-jwt-blacklist');
 
 const app = express();
-const port = process.env.PORT || 3000;
 const user = require('./web/routes');
-const config = require('./config/database');
+const config = require('./config/setup/database');
+const port = process.env.PORT || 3000;
 
 http.createServer(app).listen(port,(err)=>{
   if (err) {
@@ -19,13 +18,7 @@ http.createServer(app).listen(port,(err)=>{
   }
 });
 
-const connectDB = mongoose.connect(config.database,(err)=>{
-if(err){
-  console.log("Warning! Database not connected");
-}else{
-  console.log("Database connected"); 
-}
-});
+
 
 app.use(express.static(path.join(__dirname,"public")));
 

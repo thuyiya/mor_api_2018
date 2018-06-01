@@ -8,7 +8,7 @@ var jwtp = require('express-jwt');
 const session = require('express-session');
 
 const router = express.Router();
-const datamodelds = require('../../datamodels/user');
+const datamodelds = require('../../model/user');
 const token = require('../../config/token');
 
 router.get('/',(req,res)=>{

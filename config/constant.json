@@ -1,0 +1,11 @@
+{
+    "RESPONCE": {
+        "Unauthorized": "Unauthorized access",
+        "Validation": "Validation error occur.",
+        "DbContentNotFound": "Database content error occur.",
+        "InternalServeError": "Internal Serve Error",
+        "notFound": "Not Found",
+        "Successful": "Successful",
+        "DataExist": "Data Exist"
+    }
+}

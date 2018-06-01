@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const user_controller = require('../controller/user_controller');
 const schema = mongoose.Schema;
 
 const userSchema = new schema({
@@ -15,19 +16,19 @@ const datamodels = module.exports = mongoose.model("datamodels",userSchema);
 
 module.exports.dbSave = function(regUser,callback){
 
-        bcrypt.genSalt(10, function(err, salt) {
-            bcrypt.hash(regUser.password, salt, function(err, hash) {
-                //console.log(hash);
-                regUser.password = hash;
-                if(err){
-                    throw err;
-                }else{
-                    regUser.save(err, callback);
-                   
-                    
-                }
-            });
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(regUser.password, salt, function(err, hash) {
+            //console.log(hash);
+            regUser.password = hash;
+            if(err){
+                throw err;
+            }else{
+                regUser.save(err, callback);
+               
+                
+            }
         });
+    });
 
 };
 

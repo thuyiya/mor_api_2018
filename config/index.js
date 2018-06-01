@@ -1,5 +1,6 @@
-/*import APP from '../package.json';
-
+const APP = require('../package.json');
+const {application} = require('./app-config');
 export {
-  APP
-};*/
+  APP,
+  application
+};
