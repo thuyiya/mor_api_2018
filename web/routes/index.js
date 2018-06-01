@@ -10,6 +10,7 @@ const session = require('express-session');
 const router = express.Router();
 const datamodelds = require('../../model/user');
 const token = require('../../config/token');
+const user_controller = require('../../controller/user_controller');
 
 router.get('/',(req,res)=>{
   res.send("Hello Tidyclean!");
@@ -35,7 +36,8 @@ router.post('/register',(req,res)=>{
     }else{
       res.json({state:true,msg:"data inserted!"})
     }
-  })
+  });
+  
 });
 
 router.post('/login',(req,res)=>{

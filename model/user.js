@@ -51,3 +51,4 @@ module.exports.matchpassword = function(password,hash,callback){
 }
 
 module.exports.searchUser;
+
