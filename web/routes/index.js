@@ -103,8 +103,8 @@ router.get('/about',token.verifytoken,(req,res)=>{
 
 router.get('/logout',token.verifytoken,(req,res)=>{
     req.logout();
+    delete req.token;
     res.redirect('/');
-  
 });
 
 
