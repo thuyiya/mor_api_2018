@@ -1,8 +1,15 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const passportlocal = require('passport-local');
+const passportjwt = require('passport-jwt');
+var blacklist = require('express-jwt-blacklist');
+var jwtp = require('express-jwt');
+const session = require('express-session');
 
 const router = express.Router();
 const datamodelds = require('../../datamodels/user');
+const tokenmodels = require('../../datamodels/token');
 const token = require('../../config/token');
 
 router.get('/',(req,res)=>{
@@ -18,6 +25,7 @@ router.post('/register',(req,res)=>{
     phoneno:req.body.phoneno,
     password:req.body.password
   });
+  //console.log(regUser);
   datamodelds.dbSave(regUser,(err,user)=>{
     if(err){
       
@@ -57,7 +65,14 @@ router.post('/login',(req,res)=>{
       const newtoken = jwt.sign(obj,token.secrete,{expiresIn:86400},(err,newtoken)=>{
         if(err) {throw err;}
         else{
-            res.json({
+          const newtoken2 = new tokenmodels({
+            token: newtoken
+          });
+          
+          tokenmodels.tokenSave(newtoken2,(err,saved)=>{
+            if(err) res.json({state:false,msg:err}) ;
+            else{
+                res.json({
                 state:true,
                 token:"Bearer "+newtoken,
                 user:{
@@ -67,7 +82,9 @@ router.post('/login',(req,res)=>{
                   email:user.email,
                   phoneno:user.phoneno,
                 }
-              })
+              });
+            }
+            });
         }
       });
         }else{
@@ -96,8 +113,21 @@ router.get('/about',token.verifytoken,(req,res)=>{
 });
 
 router.get('/logout',token.verifytoken,(req,res)=>{
-  res.redirect('/');
-
+    const token = req.token;
+    //console.log(token);
+    tokenmodels.revokeToken(token,(err,removed)=>{
+      if(err) throw err;
+      else if(removed){
+        res.json({state:true,msg:"successfully loged out!"});
+      }else{
+        res.json({state:false,msg:"no token found to revoke!"});
+      }
+    })
+  
 });
+
+
+
+
 
 module.exports = router;

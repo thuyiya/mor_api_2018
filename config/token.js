@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const secretekey = "myapplicationsecretekey";
+const datamodelsUser = require("../datamodels/token");
 
 module.exports = {
     "secrete" : secretekey,
@@ -17,8 +18,18 @@ module.exports.verifytoken =function (req,res,next){
                 res.sendStatus(401);
             } 
             else{
-                req.user=userdata;
-                next();
+                datamodelsUser.matchtoken(bearerToken,(err,mached)=>{
+                    //console.log(mached);
+                    if(err) throw err;
+                    else if(mached){
+                        //console.log("token mached");
+                        req.user=userdata;
+                        next();
+                    }else{
+                        res.json({state:false,msg:"token expired!"})
+                    }
+                })
+                
             }
         });
 

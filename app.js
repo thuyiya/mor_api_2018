@@ -3,6 +3,8 @@ const http = require('http');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+var blacklist = require('express-jwt-blacklist');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,12 +19,13 @@ http.createServer(app).listen(port,(err)=>{
   }
 });
 
-const connectDB = mongoose.connect(config.database);
-if(connectDB){
-  console.log("Database connected")
+const connectDB = mongoose.connect(config.database,(err)=>{
+if(err){
+  console.log("Warning! Database not connected");
 }else{
-  console.log("Warning! Database not connected")
+  console.log("Database connected"); 
 }
+});
 
 app.use(express.static(path.join(__dirname,"public")));
 
@@ -35,4 +38,7 @@ app.get('/',(req,res)=>{
 });*/
 
 app.use('/',user);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
